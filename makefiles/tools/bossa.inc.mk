@@ -1,5 +1,9 @@
+ifeq ($(PORT_BOSSA),)
+  PORT_BOSSA = $(PORT)
+endif
+
 export FLASHER ?= $(RIOTBASE)/dist/tools/bossa/bossac
-export FFLAGS  ?= -p $(PORT) -e -i -w -v -b -R $(HEXFILE)
+export FFLAGS  ?= -p $(PORT_BOSSA) -e -i -w -v -b -R $(HEXFILE)
 
 export OFLAGS  = -O binary
 export HEXFILE = $(ELFFILE:.elf=.bin)
@@ -15,7 +19,7 @@ ifneq (,$(BOSSA_ARDUINO_PREFLASH))
   endif
 
   PREFLASHER ?= stty
-  PREFFLAGS  ?= $(STTY_FLAG) $(PORT) raw ispeed 1200 ospeed 1200 cs8 -cstopb ignpar eol 255 eof 255
+  PREFFLAGS  ?= $(STTY_FLAG) $(PORT_BOSSA) raw ispeed 1200 ospeed 1200 cs8 -cstopb ignpar eol 255 eof 255
   FLASHDEPS += preflash
 endif
 
