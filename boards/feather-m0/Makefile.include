@@ -2,7 +2,7 @@
 export CPU = samd21
 export CPU_MODEL = samd21g18a
 
-#export needed for flash rule
+# console port
 export PORT_LINUX ?= /dev/ttyUSB0
 export PORT_DARWIN ?= $(firstword $(sort $(wildcard /dev/tty.usbmodem*)))
 
@@ -15,6 +15,12 @@ ifeq ($(PROGRAMMER),jlink)
     export JLINK_DEVICE := atsamw25
     include $(RIOTMAKE)/tools/jlink.inc.mk
 else
+    ifeq ($(OS),Linux)
+        PORT_BOSSA ?= /dev/ttyACM0
+    else ifeq ($(OS),Darwin)
+        PORT_BOSSA ?= $(PORT_DARWIN)
+    endif
+
     # by default, we use BOSSA to flash this board to take into account the
     # pre-flashed bootloader
     export LINKER_SCRIPT ?= $(RIOTCPU)/sam0_common/ldscripts/$(CPU_MODEL)_bootloader.ld
