@@ -1,1 +1,22 @@
 INCLUDES += -I$(RIOTBOARD)/arduino-samd21-common/include
+
+# setup serial terminal
+include $(RIOTMAKE)/tools/serial.inc.mk
+
+# setup the flash tool used
+ifeq ($(PROGRAMMER),jlink)
+    # in case J-Link is attached to SWD pins, use a plain CPU memory model
+    export JLINK_DEVICE := atsamw25
+    include $(RIOTMAKE)/tools/jlink.inc.mk
+else
+    ifeq ($(OS),Linux)
+        PORT_BOSSA ?= /dev/ttyACM0
+    else ifeq ($(OS),Darwin)
+        PORT_BOSSA ?= $(PORT_DARWIN)
+    endif
+
+    # by default, we use BOSSA to flash this board to take into account the
+    # pre-flashed bootloader
+    export LINKER_SCRIPT ?= $(RIOTCPU)/sam0_common/ldscripts/$(CPU_MODEL)_bootloader.ld
+    include $(RIOTMAKE)/tools/bossa.inc.mk
+endif
