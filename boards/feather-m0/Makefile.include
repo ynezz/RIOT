@@ -3,6 +3,7 @@ export CPU = samd21
 export CPU_MODEL = samd21g18a
 
 USEMODULE += arduino-samd21-common
+ARDUINO_SAMD21_PREFLASH = y
 
 # console port
 export PORT_LINUX ?= /dev/ttyUSB0
