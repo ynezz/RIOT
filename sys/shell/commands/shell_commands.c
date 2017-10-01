@@ -25,6 +25,10 @@
 
 extern int _reboot_handler(int argc, char **argv);
 
+#ifdef MODULE_ARDUINO_SAMD21_COMMON
+extern int _reboot_bootloader_handler(int argc, char **argv);
+#endif
+
 #ifdef MODULE_CONFIG
 extern int _id_handler(int argc, char **argv);
 #endif
@@ -138,6 +142,9 @@ extern int _can_handler(int argc, char **argv);
 
 const shell_command_t _shell_command_list[] = {
     {"reboot", "Reboot the node", _reboot_handler},
+#if MODULE_ARDUINO_SAMD21_COMMON
+    {"bootloader", "Reboot the node into bootloader",  _reboot_bootloader_handler},
+#endif
 #ifdef MODULE_CONFIG
     {"id", "Gets or sets the node's id.", _id_handler},
 #endif
