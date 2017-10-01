@@ -49,3 +49,12 @@ reboot:
     pm_reboot();
     while (1) {}
 }
+
+int _reboot_bootloader_handler(int argc, char **argv)
+{
+    (void) argc;
+    (void) argv;
+
+    reset_into_bootloader();
+    return 0;
+}
