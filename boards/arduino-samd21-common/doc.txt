@@ -1,0 +1,13 @@
+/*
+ * Copyright (C) 2017 Petr Stetiar <ynezz@true.cz>
+ *
+ * This file is subject to the terms and conditions of the GNU Lesser
+ * General Public License v2.1. See the file LICENSE in the top level
+ * directory for more details.
+ */
+
+/**
+ * @defgroup    boards_arduino-samd21-common Arduino SAMD21 Common
+ * @ingroup     boards
+ * @brief       Common configuration and settings for Arduino SAMD21 boards
+ */

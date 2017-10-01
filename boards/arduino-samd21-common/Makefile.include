@@ -1,0 +1,1 @@
+INCLUDES += -I$(RIOTBOARD)/arduino-samd21-common/include
