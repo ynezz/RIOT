@@ -2,6 +2,8 @@
 export CPU = samd21
 export CPU_MODEL = samd21g18a
 
+USEMODULE += arduino-samd21-common
+
 # console port
 export PORT_LINUX ?= /dev/ttyUSB0
 export PORT_DARWIN ?= $(firstword $(sort $(wildcard /dev/tty.usbmodem*)))
@@ -29,3 +31,4 @@ endif
 
 # setup the boards dependencies
 include $(RIOTBOARD)/$(BOARD)/Makefile.dep
+include $(RIOTBOARD)/arduino-samd21-common/Makefile.include
